@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React,{ useState } from 'react';
+import seam from '/seam.png';
 
 const SignupForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -45,9 +46,13 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-50">
+    <div className="min-h-screen flex items-center justify-center bg-blue-100">
       <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-xs">
-        <h1 className="text-xl font-semibold text-center text-purple-700">Sign up</h1>
+      <div className="flex flex-col items-center mb-6">
+          <img src={seam} alt="Seam" className="h-12 sm:h-14 mb-4" />
+          <h2 className="text-xl sm:text-2xl font-semibold text-purple-600">Sign Up</h2>
+          {/*<p className="text-gray-600 text-sm">Use default credentials: <strong>test@appseed.us</strong> / <strong>pass</strong></p>*/}
+        </div>
         <p className="text-center text-gray-500 mb-4">Enter your credentials to continue</p>
 
         <form onSubmit={handleSubmit}>
