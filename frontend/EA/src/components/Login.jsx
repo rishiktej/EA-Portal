@@ -53,7 +53,7 @@ const Login = () => {
             Sign IN
           </button>
           <div className="flex justify-between items-center mt-4 text-sm">
-            <a href="#" className="text-purple-600 hover:underline">Create Account</a>
+            <a href="/register" className="text-purple-600 hover:underline">Create Account</a>
             <a href="#" className="text-gray-500 hover:underline">Forgot Password?</a>
           </div>
         </form>
