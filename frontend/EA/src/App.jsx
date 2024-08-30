@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Signup from "./components/Register"; // Assuming SignupForm is the Register component
-import Login from "./components/Login"; // Create or import your Login component
+import Login from "./components/Login";
+import Eventcreation from "./components/EventRegistration"; // Create or import your Login component
 
 const App = () => {
   return (
@@ -9,6 +10,7 @@ const App = () => {
       <div className="min-h-screen bg-blue-100 flex items-center justify-center">
         <Routes>
           <Route path="/register" element={<Signup />} />
+          <Route path="/Eventcreation" element={<Eventcreation />} />
           <Route path="/" element={<Login />} />
         </Routes>
       </div>
