@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -18,6 +19,10 @@ public class UserServices {
 
         return repo.save(user);
 
+    }
+
+    public List<UserModel> search(String email){
+        return repo.findByEmail(email);
     }
 
     }
