@@ -4,13 +4,15 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Register from './components/Register'
 import Login from './Components/login'
+import Hero from './components/Hero'
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
       {/*<Register/>*/}
-      <Login/>
+      {/*<Login/>*/}
+      <Hero/>
     </>
   )
 }
