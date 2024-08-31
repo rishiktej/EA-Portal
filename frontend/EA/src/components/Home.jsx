@@ -11,9 +11,40 @@ import {
   FaSignOutAlt,
   FaPlus, // Import icon for "Create Event"
 } from "react-icons/fa";
+import { EventCard } from "./Eventcard";
 
 // Dummy components for demonstration
-const DashboardPage = () => <div className="p-4">Dashboard</div>;
+const events = [
+  {
+    id: 1,
+    title: "Tech Talk",
+    date: "2024-09-15",
+    clubName: "Computer Science Club",
+    time: "10:00 AM",
+    poster: "tech_talk_poster.jpg",
+  },
+  {
+    id: 2,
+    title: "Art Workshop",
+    date: "2024-09-20",
+    clubName: "Art Club",
+    time: "1:00 PM",
+    poster: "art_workshop_poster.jpg",
+  },
+  // Add more events as needed
+];
+const DashboardPage = () => {
+  return (
+    <div className="p-4 space-y-4">
+      <h2 className="text-2xl font-bold"> Your Live Events</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {events.map((event) => (
+          <EventCard key={event.id} event={event} />
+        ))}
+      </div>
+    </div>
+  );
+};
 const EventCreationPage = () => <div className="p-4">Event Creation Page</div>;
 
 const Admind = () => {
@@ -69,7 +100,7 @@ const Admind = () => {
                 <li className="text-sm uppercase text-gray-500">Utilities</li>
                 <li>
                   <Link
-                    to="/typography"
+                    to="/adminet"
                     className="flex items-center space-x-2 hover:bg-gray-200 rounded-lg p-2"
                   >
                     <FaPenNib />

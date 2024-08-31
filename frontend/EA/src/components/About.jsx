@@ -1,6 +1,6 @@
 import React from "react";
 import a from "../../../EA/public/logos/akhil.png";
-import s from "../../../EA/public/logos/sai.png";
+import s from "../../../EA/public/logos/Sai.jpg";
 import r from "../../../EA/public/logos/rishik.png";
 import ri from "../../../EA/public/logos/ritesh.png";
 import p from "../../../EA/public/logos/puppy.png";
@@ -56,7 +56,7 @@ const AboutPage = () => {
           {creators.map((creator) => (
             <div
               key={creator.name}
-              className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center text-center"
+              className="bg-white p-6 rounded-lg shadow-lg hover:scale-105 flex flex-col items-center text-center"
             >
               <img
                 src={creator.photo}
