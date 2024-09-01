@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -25,10 +23,10 @@ public class UserController {
         return new ResponseEntity<>( service.putData(user), HttpStatus.OK);
     }
 
-    @PostMapping("/search")
-    public List<UserModel> searchController(@RequestBody UserBody user){
-        System.out.println(user.email);
-        return service.search(user.email);
+    @PostMapping("/login")
+    public String searchController(@RequestBody UserBody user){
+        System.out.println(user);
+        return service.searchUser(user);
     }
 
 
