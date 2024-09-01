@@ -1,10 +1,16 @@
 package com.SEAM.backend.models;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "User")
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Document(collection = "Admin")
+@AllArgsConstructor
+@Data
 public class Admin {
-    public String name;
+    @Id
     public String club;
     public String password;
 }

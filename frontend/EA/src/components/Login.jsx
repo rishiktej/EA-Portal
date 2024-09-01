@@ -1,17 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
+import seam from "/seam.png";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // Log the email and password to verify the inputs
+    console.log("Email:", email);
+    console.log("Password:", password);
+
+    try {
+      const response = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      console.log("Success:", data);
+      // Handle success response here
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle error response here
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-blue-100 p-4 sm:p-8">
       <div className="bg-white p-6 sm:p-8 rounded-lg shadow-lg max-w-sm sm:max-w-md w-full">
         <div className="flex flex-col items-center mb-6">
-          <img src="SEAM.png" alt="berry" className="h-12 sm:h-14 mb-4" />
+          <img src={seam} alt="Seam" className="h-12 sm:h-14 mb-4" />
           <h2 className="text-xl sm:text-2xl font-semibold text-purple-600">
             Login
           </h2>
-          {/*<p className="text-gray-600 text-sm">Use default credentials: <strong>test@appseed.us</strong> / <strong>pass</strong></p>*/}
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -22,6 +54,8 @@ const Login = () => {
             <input
               type="email"
               id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
               placeholder="Enter your E-mail"
             />
@@ -37,6 +71,8 @@ const Login = () => {
               <input
                 type="password"
                 id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
                 placeholder="Password"
               />
@@ -92,11 +128,6 @@ const Login = () => {
           </a>
         </div>
       </div>
-      {/* <button className="fixed bottom-4 right-4 bg-purple-600 text-white p-3 rounded-full shadow-lg">
-        <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11h2M5 11H3M8 7H5M8 17h6"></path>
-        </svg>
-      </button> */}
     </div>
   );
 };
