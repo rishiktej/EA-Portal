@@ -12,7 +12,7 @@ import lombok.Data;
 public class Attendance {
     
     @Id
-    Integer admission_no;
+    String admissionno;
     Integer Event_Id;
     
 }
