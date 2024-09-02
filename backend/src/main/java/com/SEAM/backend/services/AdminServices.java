@@ -4,7 +4,6 @@ package com.SEAM.backend.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.SEAM.backend.models.Admin;
-import com.SEAM.backend.models.UserModel;
 import com.SEAM.backend.repo.AdminRepo;
 
 @Service
@@ -22,7 +21,5 @@ public class AdminServices {
         Admin a = repo.findByclub(id).getFirst();
         String p = a.password;
         return p;
-
     }
-    
 }
