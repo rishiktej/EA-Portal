@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SEAM.backend.models.Admin;
-import com.SEAM.backend.models.UserModel;
 import com.SEAM.backend.services.AdminServices;
 
 @RestController
