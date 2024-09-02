@@ -36,8 +36,6 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
                             "eventDetails.clubName", "eventDetails.eventName", "eventDetails.eventDate",
                             "eventDetails.startTime", "eventDetails.endTime", "eventDetails.eventLocation")
     );
-
-
         AggregationResults<UserEventModel> results = mongoTemplate.aggregate(aggregation, "Attendance", UserEventModel.class);
     return results.getMappedResults();
     }

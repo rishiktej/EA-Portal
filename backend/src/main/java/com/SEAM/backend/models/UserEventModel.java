@@ -6,7 +6,11 @@ import java.time.LocalTime;
 import java.util.Date;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Data
 public class UserEventModel {
     private String username;
@@ -18,5 +22,4 @@ public class UserEventModel {
     private LocalTime startTime;
     private LocalTime endTime;
     private String eventLocation;
-
 }
