@@ -17,14 +17,28 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
     private MongoTemplate mongoTemplate;
 
     @Override
-    public List<UserModel> findUsersWithAttendance() {
-        Aggregation aggregation = Aggregation.newAggregation(
-                Aggregation.lookup("Users", "_id", "_id", "userDetails"),
-                Aggregation.unwind("userDetails"),
-                Aggregation.replaceRoot("userDetails")
-        );
+    public  List<UserEventModel> findUsersWithAttendance() {
+         Aggregation aggregation = Aggregation.newAggregation(
+        // Stage 1: Lookup Users collection based on admission_no
+        Aggregation.lookup("Users", "_id", "_id", "userDetails"),
+        
+        // Stage 2: Unwind userDetails array
+        Aggregation.unwind("userDetails"),
+        
+        // Stage 3: Lookup Event collection based on Event_Id
+        Aggregation.lookup("Event", "Event_Id", "_id", "eventDetails"),
+        
+        // Stage 4: Unwind eventDetails array
+        Aggregation.unwind("eventDetails"),
+        
+        // Stage 5: Project only the desired fields
+        Aggregation.project("userDetails.username", "userDetails.roll_no", "userDetails.branch",
+                            "eventDetails.clubName", "eventDetails.eventName", "eventDetails.eventDate",
+                            "eventDetails.startTime", "eventDetails.endTime", "eventDetails.eventLocation")
+    );
 
-        AggregationResults<UserModel> results = mongoTemplate.aggregate(aggregation, "Attendance", UserModel.class);
-        return results.getMappedResults();
+
+        AggregationResults<UserEventModel> results = mongoTemplate.aggregate(aggregation, "Attendance", UserEventModel.class);
+    return results.getMappedResults();
     }
 }

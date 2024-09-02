@@ -14,7 +14,7 @@ public class Attendancedtoservices {
     @Autowired
     private Attendancedtorepo userRepository;
 
-    public List<UserModel> getUsersWithAttendance() {
+    public List<UserEventModel> getUsersWithAttendance() {
         return userRepository.findUsersWithAttendance();
     }
 }

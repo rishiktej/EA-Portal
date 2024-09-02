@@ -18,7 +18,7 @@ public class Attendancedto {
     private Attendancedtoservices userService;
 
     @GetMapping("/with-attendance")
-    public List<UserModel> getUsersWithAttendance() {
+    public List<UserEventModel> getUsersWithAttendance() {
         return userService.getUsersWithAttendance();
     }
 }

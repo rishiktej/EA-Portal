@@ -13,6 +13,6 @@ public class Attendance {
     
     @Id
     String admissionno;
-    Integer Event_Id;
+    String Event_Id;
     
 }
