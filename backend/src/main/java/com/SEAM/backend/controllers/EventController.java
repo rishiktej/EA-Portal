@@ -23,14 +23,41 @@ public class EventController {
 
      @PostMapping("/create")
     public ResponseEntity<Event> createController(@RequestBody Event event){
-        return new ResponseEntity<>(service.createEvent(event), HttpStatus.CREATED);
+        return new ResponseEntity<Event>(service.createEvent(event), HttpStatus.CREATED);
      }
      @GetMapping("/{id}")
     public ResponseEntity<Optional<Event>> getByIdController(@PathVariable String id){
-        return new ResponseEntity<>(service.getEventById(id),HttpStatus.FOUND);
+        return new ResponseEntity<Optional<Event>>(service.getEventById(id),HttpStatus.FOUND);
      }
      @GetMapping("/name/{clubName}")
     public ResponseEntity<List<Event>> getEventByNameController(@PathVariable String clubName){
-        return new ResponseEntity<>(service.getEventByName(clubName),HttpStatus.FOUND);
+        return new ResponseEntity<List<Event>>(service.getEventByName(clubName),HttpStatus.FOUND);
      }
+     @GetMapping("pastEvents")
+    public ResponseEntity<List<Event>> getPastEvents(){
+        return new ResponseEntity<List<Event>>(service.getPastEvents(),HttpStatus.FOUND);
+     }
+    @GetMapping("futureEvents")
+    public ResponseEntity<List<Event>> getFutureEvents(){
+        return new ResponseEntity<List<Event>>(service.getFutureEvents(),HttpStatus.FOUND);
+    }
+    @GetMapping("presentEvents")
+    public ResponseEntity<List<Event>> getPresentEvents(){
+        return new ResponseEntity<List<Event>>(service.getPresentEvents(),HttpStatus.FOUND);
+    }
+    @GetMapping("presentEventsByClub/{clubName}")
+    public ResponseEntity<List<Event>> getPresentEventsByClubName(@PathVariable String clubName){
+        return new ResponseEntity<List<Event>>(service.getPresentEventsByClub(clubName),HttpStatus.FOUND);
+    }
+
+    @GetMapping("pastEventsByClub/{clubName}")
+    public ResponseEntity<List<Event>> getPastEventsByClubName(@PathVariable String clubName){
+        return new ResponseEntity<List<Event>>(service.getPastEventsByClub(clubName),HttpStatus.FOUND);
+    }
+
+    @GetMapping("futureEventsByClub/{clubName}")
+    public ResponseEntity<List<Event>> getFutureEventsByClubName(@PathVariable String clubName){
+        return new ResponseEntity<List<Event>>(service.getFutureEventsByClub(clubName),HttpStatus.FOUND);
+    }
+
 }

@@ -60,7 +60,7 @@ public class Attendancedtoservices {
             presentees = event.get().eventPresentees;
         }
         else {
-            presentees = new ArrayList<>();
+            presentees = new ArrayList<String>();
         }
 
         Workbook workbook = new XSSFWorkbook();
