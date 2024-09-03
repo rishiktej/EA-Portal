@@ -6,18 +6,50 @@ import { FaCamera } from "react-icons/fa"; // Import camera icon
 const ScanAttendancePage = () => {
   const [cameraEnabled, setCameraEnabled] = useState(false);
   const [scannedResult, setScannedResult] = useState("");
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   // Function to handle the toggle of camera
   const toggleCamera = () => {
     setCameraEnabled(!cameraEnabled);
+    setSuccess("");
+    setError("");
+    setScannedResult("");
   };
 
   // Function to handle the result from BarcodeScanner
-  const handleScan = (result) => {
+  const handleScan = async (result) => {
     if (result) {
       setScannedResult(result);
-      // Handle the scanned result here (e.g., send it to the server or navigate to another page)
+
+      const attendanceData = result;
+
+      try {
+        const response = await fetch("http://localhost:8080/12/presentees", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.parse(attendanceData),
+        });
+
+        if (response.ok) {
+          setSuccess("Attendance posted successfully!");
+          console.log("Success:", await response.json());
+          // Restart scanning after a short delay
+          setTimeout(() => {
+            toggleCamera();
+            setCameraEnabled(true);
+          }, 3000); // 2 seconds delay before restarting
+        } else {
+          setError("Failed to post attendance. Please try again.");
+          console.error("Error:", response.statusText);
+        }
+      } catch (error) {
+        setError("An error occurred. Please try again.");
+        console.error("Error:", error);
+      }
     }
   };
 
@@ -47,6 +79,12 @@ const ScanAttendancePage = () => {
           </h2>
           <p className="text-base md:text-lg lg:text-xl">{scannedResult}</p>
         </div>
+      )}
+      {success && (
+        <p className="text-green-600 text-sm mb-4 text-center">{success}</p>
+      )}
+      {error && (
+        <p className="text-red-600 text-sm mb-4 text-center">{error}</p>
       )}
     </div>
   );

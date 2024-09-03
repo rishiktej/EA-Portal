@@ -1,25 +1,27 @@
 package com.SEAM.backend.services;
 
-import java.util.List;
-
+import com.SEAM.backend.models.Event;
+import com.SEAM.backend.repo.EventRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.SEAM.backend.models.Attendance;
-import com.SEAM.backend.repo.AttendanceRepo;
+import java.util.Optional;
 
 @Service
 public class AttendanceServices {
 
     @Autowired
-    public AttendanceRepo repo;
+    private EventRepo eventRepo;
 
-    public Attendance putAttendance(Attendance a ){
-        return repo.save(a);
-    }
+    public Event updateEventPresentees(String eventId, String presentee) {
+        Optional<Event> optionalEvent = eventRepo.findById(eventId);
 
-    public List<Attendance> getattendance(){
-        return repo.findAll();
+        if (optionalEvent.isPresent()) {
+            Event event = optionalEvent.get();
+            event.eventPresentees.add(presentee);
+            return eventRepo.save(event);
+        } else {
+            throw new RuntimeException("Event not found with id: " + eventId);
+        }
     }
-    
 }

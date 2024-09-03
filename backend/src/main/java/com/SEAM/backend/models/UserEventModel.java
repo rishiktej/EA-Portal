@@ -4,6 +4,7 @@ package com.SEAM.backend.models;
 
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 import lombok.Getter;
@@ -21,5 +22,5 @@ public class UserEventModel {
     private Date eventDate;
     private LocalTime startTime;
     private LocalTime endTime;
-    private String eventLocation;
+    private String eventLocation; 
 }

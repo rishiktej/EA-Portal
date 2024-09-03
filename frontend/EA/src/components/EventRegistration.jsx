@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 
 const EventForm = () => {
+  const [eventId, seteventId] = useState("");
   const [eventName, setEventName] = useState("");
   const [eventDescription, setEventDescription] = useState("");
   const [eventDate, setEventDate] = useState("");
-  const [eventTime, setEventTime] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
   const [eventLocation, setEventLocation] = useState("");
+  const [clubName, setClubName] = useState("");
+  const [eventPresentees, seteventPresentees] = useState([]);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -16,11 +20,14 @@ const EventForm = () => {
 
     // Basic validation
     if (
+      !eventId ||
       !eventName ||
       !eventDescription ||
       !eventDate ||
-      !eventTime ||
-      !eventLocation
+      !startTime ||
+      !endTime ||
+      !eventLocation ||
+      !clubName
     ) {
       setError("All fields are required.");
       return;
@@ -28,32 +35,39 @@ const EventForm = () => {
 
     // Data to be sent to the backend
     const eventData = {
+      eventId,
       eventName,
       eventDescription,
       eventDate,
-      eventTime,
+      startTime,
+      endTime,
       eventLocation,
+      clubName,
+      eventPresentees,
     };
 
     try {
-      //   const response = await fetch("http://localhost:8080/events", {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(eventData),
-      //   });
+      const response = await fetch("http://localhost:8080/event/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(eventData),
+      });
 
       if (response.ok) {
         const result = await response.json();
         setSuccess("Event created successfully!");
         console.log("Success:", result);
         // Optionally reset the form
+        seteventId("");
         setEventName("");
         setEventDescription("");
         setEventDate("");
-        setEventTime("");
+        setStartTime("");
+        setEndTime("");
         setEventLocation("");
+        setClubName("");
       } else {
         setError("Failed to create event. Please try again.");
         console.error("Error:", response.statusText);
@@ -77,6 +91,23 @@ const EventForm = () => {
           <p className="text-green-600 text-sm mb-4 text-center">{success}</p>
         )}
         <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="eventId"
+            >
+              Event Id
+            </label>
+            <input
+              type="text"
+              id="eventId"
+              value={eventId}
+              onChange={(e) => seteventId(e.target.value)}
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+              placeholder="Enter eventId"
+              required
+            />
+          </div>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -120,7 +151,7 @@ const EventForm = () => {
                 Date
               </label>
               <input
-                type="date"
+                type="text"
                 id="eventDate"
                 value={eventDate}
                 onChange={(e) => setEventDate(e.target.value)}
@@ -128,22 +159,57 @@ const EventForm = () => {
                 required
               />
             </div>
-            <div className="flex-1">
+          </div>
+          <div className="mb-4 flex flex-col sm:flex-row sm:space-x-4">
+            <div className="flex-1 mb-4 sm:mb-0">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="eventTime"
+                htmlFor="startTime"
               >
-                Time
+                Start Time
               </label>
               <input
-                type="time"
-                id="eventTime"
-                value={eventTime}
-                onChange={(e) => setEventTime(e.target.value)}
+                type="text"
+                id="startTime"
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
                 className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
                 required
               />
             </div>
+            <div className="flex-1">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="endTime"
+              >
+                End Time
+              </label>
+              <input
+                type="text"
+                id="endTime"
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                required
+              />
+            </div>
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="clubName"
+            >
+              Club Name
+            </label>
+            <input
+              type="text"
+              id="clubName"
+              value={clubName}
+              onChange={(e) => setClubName(e.target.value)}
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+              placeholder="Enter club name"
+              required
+            />
           </div>
           <div className="mb-4">
             <label
