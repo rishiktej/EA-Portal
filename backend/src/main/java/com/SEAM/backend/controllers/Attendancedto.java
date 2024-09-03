@@ -21,11 +21,11 @@ public class Attendancedto {
     @Autowired
     private Attendancedtoservices userService;
 
-    @GetMapping("/with-attendance/{eid}")
-    public List<UserEventModel> getUsersWithAttendance(@PathVariable String eid) {
-        System.out.println("1");
-        return userService.getUsersWithAttendance(eid);
-    }
+//    @GetMapping("/with-attendance/{eid}")
+//    public List<UserEventModel> getUsersWithAttendance(@PathVariable String eid) {
+//        System.out.println("1");
+//        return userService.getUsersWithAttendance(eid);
+//    }
 
     @GetMapping("/download/{eid}")
     public void download(HttpServletResponse response,@PathVariable String eid) throws IOException {
