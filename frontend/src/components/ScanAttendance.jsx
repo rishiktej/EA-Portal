@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { BarcodeScanner } from "./BarcodeScanner"; // Import the BarcodeScanner component
 import { FaCamera } from "react-icons/fa"; // Import camera icon
 
 const ScanAttendancePage = () => {
+  const { eventId } = useParams();
   const [cameraEnabled, setCameraEnabled] = useState(false);
   const [scannedResult, setScannedResult] = useState("");
   const [success, setSuccess] = useState("");
@@ -23,25 +25,25 @@ const ScanAttendancePage = () => {
     if (result) {
       setScannedResult(result);
 
-      const attendanceData = result;
+      const attendanceData = result; // Assuming the result needs to be in JSON format
 
       try {
-        const response = await fetch("http://localhost:8080/12/presentees", {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.parse(attendanceData),
-        });
+        const response = await fetch(
+          `http://localhost:8080/${eventId}/presentees`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: attendanceData,
+          }
+        );
 
         if (response.ok) {
           setSuccess("Attendance posted successfully!");
           console.log("Success:", await response.json());
-          // Restart scanning after a short delay
-          setTimeout(() => {
-            toggleCamera();
-            setCameraEnabled(true);
-          }, 3000); // 2 seconds delay before restarting
+          // Disable the camera after a successful scan
+          setCameraEnabled(false);
         } else {
           setError("Failed to post attendance. Please try again.");
           console.error("Error:", response.statusText);

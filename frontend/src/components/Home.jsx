@@ -1,42 +1,63 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  useParams,
+} from "react-router-dom";
 import {
   FaTachometerAlt,
   FaPenNib,
   FaPalette,
-  FaShapes,
   FaIcons,
   FaBook,
   FaBars,
   FaSignOutAlt,
-  FaPlus, // Import icon for "Create Event"
+  FaPlus,
 } from "react-icons/fa";
-import { EventCard } from "./Eventcard";
+import { EventCard } from "./Eventcard"; // Assuming EventCard is the correct import
 
-// Dummy components for demonstration
-const events = [
-  {
-    id: 1,
-    title: "Tech Talk",
-    date: "2024-09-15",
-    clubName: "Computer Science Club",
-    time: "10:00 AM",
-    poster: "tech_talk_poster.jpg",
-  },
-  {
-    id: 2,
-    title: "Art Workshop",
-    date: "2024-09-20",
-    clubName: "Art Club",
-    time: "1:00 PM",
-    poster: "art_workshop_poster.jpg",
-  },
-  // Add more events as needed
-];
 const DashboardPage = () => {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { clubname } = useParams(); // Assuming the clubname is passed as a URL parameter
+
+  useEffect(() => {
+    // Fetch events from the API
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/presentEventsByClub/${clubname}`
+        );
+        console.log(response);
+        if (!response.ok) {
+          throw new Error("Failed to fetch events");
+        }
+        const data = await response.json();
+        setEvents(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, [clubname]);
+
+  if (loading) {
+    return <p>Loading events...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
   return (
     <div className="p-4 space-y-4">
-      <h2 className="text-2xl font-bold"> Your Live Events</h2>
+      <h2 className="text-2xl font-bold">Your Live Events</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {events.map((event) => (
           <EventCard key={event.id} event={event} />
@@ -45,10 +66,12 @@ const DashboardPage = () => {
     </div>
   );
 };
+
 const EventCreationPage = () => <div className="p-4">Event Creation Page</div>;
 
 const Admind = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const { clubname } = useParams(); // Getting clubname from URL parameters
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -100,7 +123,7 @@ const Admind = () => {
                 <li className="text-sm uppercase text-gray-500">Utilities</li>
                 <li>
                   <Link
-                    to="/adminet"
+                    to={`/adminet/${clubname}`} // Using template literals to pass clubname
                     className="flex items-center space-x-2 hover:bg-gray-200 rounded-lg p-2"
                   >
                     <FaPenNib />
@@ -162,7 +185,7 @@ const Admind = () => {
             <main className="flex-1 p-4 space-y-4">
               <Routes>
                 <Route path="/" element={<DashboardPage />} />
-                <Route path="/Eventcreation" element={<EventCreationPage />} />
+                <Route path="/eventcreation" element={<EventCreationPage />} />
                 {/* Add other routes here */}
               </Routes>
             </main>

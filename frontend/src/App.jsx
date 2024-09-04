@@ -22,12 +22,15 @@ const App = () => {
           <Route path="/Eventcreation" element={<Eventcreation />} />
           <Route path="/event/:eventId" element={<EventDetailPage />} />
           <Route path="/pastevent/:eventId" element={<AdminEventDetails />} />
-          <Route path="/scan-attendance" element={<ScanAttendancePage />} />
-          <Route path="/adminet" element={<AdminEvents />} />
+          <Route
+            path="/scan-attendance/:eventId"
+            element={<ScanAttendancePage />}
+          />
+          <Route path="/adminet/:clubname/*" element={<AdminEvents />} />
           <Route path="/" element={<Login />} />
           <Route path="/hero" element={<Hero />} />
           <Route path="/about" element={<About />} />
-          <Route path="/admin" element={<Admind />} />
+          <Route path="/admin/:clubname/*" element={<Admind />} />
         </Routes>
       </div>
     </Router>

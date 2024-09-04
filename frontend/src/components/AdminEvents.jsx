@@ -1,53 +1,62 @@
-import React from "react";
-import { EventCard1 } from "./Eventcard"; // Assuming you use EventCard for displaying events
-
-// Sample data for past events
-const events = [
-  {
-    id: 1,
-    title: "Tech Talk",
-    date: "2024-09-15",
-    clubName: "Computer Science Club",
-    time: "10:00 AM",
-    poster: "tech_talk_poster.jpg",
-  },
-  {
-    id: 3,
-    title: "Tech Talk",
-    date: "2024-09-12",
-    clubName: "Satarc",
-    time: "10:00 AM",
-    poster: "tech_talk_poster.jpg",
-  },
-  {
-    id: 2,
-    title: "Art Workshop",
-    date: "2024-08-20",
-    clubName: "Art Club",
-    time: "1:00 PM",
-    poster: "art_workshop_poster.jpg",
-  },
-  // Add more events as needed
-];
-
-// Helper function to group events by year and month
-const groupEventsByMonth = (events) => {
-  return events.reduce((acc, event) => {
-    const date = new Date(event.date);
-    const year = date.getFullYear();
-    const month = date.toLocaleString("default", { month: "long" });
-
-    if (!acc[year]) acc[year] = {};
-    if (!acc[year][month]) acc[year][month] = [];
-
-    acc[year][month].push(event);
-
-    return acc;
-  }, {});
-};
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom"; // Import useParams to get the clubname from the URL
+import { EventCard1 } from "./Eventcard"; // Assuming EventCard1 is the correct import for displaying events
 
 const AdminEvents = () => {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { clubname } = useParams(); // Assuming the clubname is passed as a URL parameter
+
+  useEffect(() => {
+    // Fetch events from the API
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/pastEventsByClub/${clubname}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch events");
+        }
+        const data = await response.json();
+        setEvents(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, [clubname]);
+
+  // Helper function to group events by year and month
+  console.log("events:", events);
+  const groupEventsByMonth = (events) => {
+    return events.reduce((acc, event) => {
+      const date = new Date(event.eventDate);
+      const year = date.getFullYear();
+      const month = date.toLocaleString("default", { month: "long" });
+
+      if (!acc[year]) acc[year] = {};
+      if (!acc[year][month]) acc[year][month] = [];
+
+      acc[year][month].push(event);
+
+      return acc;
+    }, {});
+  };
+
   const groupedEvents = groupEventsByMonth(events);
+  console.log(groupedEvents);
+
+  if (loading) {
+    return <p>Loading events...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   return (
     <div className="p-4 space-y-4">

@@ -47,7 +47,7 @@ const EventForm = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/event/create", {
+      const response = await fetch("http://localhost:8080/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -151,7 +151,7 @@ const EventForm = () => {
                 Date
               </label>
               <input
-                type="datetime-local"
+                type="date"
                 id="eventDate"
                 value={eventDate}
                 onChange={(e) => setEventDate(e.target.value)}
@@ -169,7 +169,7 @@ const EventForm = () => {
                 Start Time
               </label>
               <input
-                type="text"
+                type="time"
                 id="startTime"
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
@@ -185,7 +185,7 @@ const EventForm = () => {
                 End Time
               </label>
               <input
-                type="text"
+                type="time"
                 id="endTime"
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}

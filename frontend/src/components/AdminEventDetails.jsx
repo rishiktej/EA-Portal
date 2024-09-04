@@ -14,47 +14,90 @@ const AdminEventDetails = () => {
   }
 
   const {
-    title,
-    date,
+    eventName,
+    eventDate,
     clubName,
-    time,
-    description,
-    photos,
-    attendanceDocument,
+    startTime,
+    endTime,
+    eventDescription,
+    eventId, // Make sure eventId is available
   } = event;
 
-  // Settings for the photo slider
+  const date = new Date(eventDate);
+  const formattedDate = date.toLocaleDateString();
+
+  const formatTime = (timeString) => {
+    const [hours, minutes] = timeString.split(":");
+    const date = new Date();
+    date.setHours(hours, minutes);
+    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  };
+
+  const formattedStartTime = formatTime(startTime);
+  const formattedEndTime = formatTime(endTime);
+
+  // Settings for the photo slider (if you plan to use it)
   const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    pauseOnHover: true,
+    // Your slider settings here
+  };
+
+  const baseUrl = "http://localhost:8080"; // Base URL of your backend
+  const downloadDocumentUrl = `${baseUrl}/download/${eventId}`;
+
+  const handleDownload = async () => {
+    try {
+      const response = await fetch(downloadDocumentUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type":
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch the document");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "attendance_document.xlsx"; // Filename for the downloaded file
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading document:", error);
+    }
   };
 
   return (
     <div className="p-4 max-w-3xl mx-auto space-y-6">
-      <h1 className="text-4xl font-bold mb-4 text-center">{title}</h1>
+      <h1 className="text-4xl font-bold mb-4 text-center">{eventName}</h1>
 
       <div className="space-y-4">
         <div className="flex flex-col items-start">
           <p className="text-xl">
-            <span className="font-semibold">Date:</span> {date}
+            <span className="font-semibold">Date:</span> {formattedDate}
           </p>
           <p className="text-xl">
-            <span className="font-semibold">Time:</span> {time}
+            <span className="font-semibold">Start Time:</span>{" "}
+            {formattedStartTime}
+          </p>
+          <p className="text-xl">
+            <span className="font-semibold">End Time:</span> {formattedEndTime}
           </p>
           <p className="text-xl">
             <span className="font-semibold">Club:</span> {clubName}
           </p>
           <p className="text-xl">
-            <span className="font-semibold">Description:</span> {description}
+            <span className="font-semibold">Description:</span>{" "}
+            {eventDescription}
           </p>
         </div>
 
+        {/* Uncomment this section if you have photos */}
         {/* {photos && photos.length > 0 && (
           <div className="mt-6">
             <h2 className="text-2xl font-semibold mb-4">Event Photos</h2>
@@ -75,23 +118,22 @@ const AdminEventDetails = () => {
         <div className="mt-6 space-y-2">
           <h2 className="text-2xl font-semibold">Attendance</h2>
           <div className="flex flex-col space-y-2">
-            <a
-              href={attendanceDocument}
+            {/* <a
+              href={viewDocumentUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center text-blue-600 hover:text-blue-800 transition text-lg"
             >
               <FaFileAlt className="mr-2 text-xl" />
               View Attendance Document
-            </a>
-            <a
-              href={attendanceDocument}
-              download
-              className="flex items-center text-blue-600 hover:text-blue-800 transition text-lg"
+            </a> */}
+            <button
+              onClick={handleDownload}
+              className="flex items-center text-blue-600 hover:text-blue-800 transition text-lg bg-transparent border-none cursor-pointer"
             >
               <FaDownload className="mr-2 text-xl" />
               Download Attendance Document
-            </a>
+            </button>
           </div>
         </div>
       </div>

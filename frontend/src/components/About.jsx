@@ -1,10 +1,10 @@
 import React from "react";
-import a from "../../../EA/public/logos/akhil.png";
-import s from "../../../EA/public/logos/Sai.jpg";
-import r from "../../../EA/public/logos/rishik.png";
-import ri from "../../../EA/public/logos/ritesh.png";
-import p from "../../../EA/public/logos/puppy.png";
-import sd from "../../../EA/public/logos/siddu.png";
+import a from "../../public/logos/Akhil.png";
+import s from "../../public/logos/Sai.jpg";
+import r from "../../public/logos/rishik.png";
+import ri from "../../public/logos/ritesh.png";
+import p from "../../public/logos/puppy.png";
+import sd from "../../public/logos/siddu.png";
 
 const creators = [
   {

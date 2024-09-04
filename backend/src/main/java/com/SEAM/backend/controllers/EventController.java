@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/event")
+@RequestMapping
 public class EventController {
     @Autowired
     private EventServices service;
@@ -27,7 +27,7 @@ public class EventController {
      }
      @GetMapping("/{id}")
     public ResponseEntity<Optional<Event>> getByIdController(@PathVariable String id){
-        return new ResponseEntity<Optional<Event>>(service.getEventById(id),HttpStatus.FOUND);
+        return new ResponseEntity<Optional<Event>>(service.getEventById(id),HttpStatus.OK);
      }
      @GetMapping("/name/{clubName}")
     public ResponseEntity<List<Event>> getEventByNameController(@PathVariable String clubName){
@@ -47,12 +47,12 @@ public class EventController {
     }
     @GetMapping("presentEventsByClub/{clubName}")
     public ResponseEntity<List<Event>> getPresentEventsByClubName(@PathVariable String clubName){
-        return new ResponseEntity<List<Event>>(service.getPresentEventsByClub(clubName),HttpStatus.FOUND);
+        return new ResponseEntity<List<Event>>(service.getPresentEventsByClub(clubName),HttpStatus.OK);
     }
 
     @GetMapping("pastEventsByClub/{clubName}")
     public ResponseEntity<List<Event>> getPastEventsByClubName(@PathVariable String clubName){
-        return new ResponseEntity<List<Event>>(service.getPastEventsByClub(clubName),HttpStatus.FOUND);
+        return new ResponseEntity<List<Event>>(service.getPastEventsByClub(clubName),HttpStatus.OK);
     }
 
     @GetMapping("futureEventsByClub/{clubName}")

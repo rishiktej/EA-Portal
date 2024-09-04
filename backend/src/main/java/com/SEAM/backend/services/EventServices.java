@@ -22,7 +22,7 @@ public class EventServices {
     public Optional<Event>  getEventById(String eventId){
         return repo.findById(eventId);
     }
-    public List<Event> getEventByName(String clubName){
+    public List<Event> getEventByName (String clubName){
         return repo.findByClubName(clubName);
     }
 
