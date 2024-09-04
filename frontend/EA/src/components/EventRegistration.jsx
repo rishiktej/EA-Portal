@@ -151,7 +151,7 @@ const EventForm = () => {
                 Date
               </label>
               <input
-                type="text"
+                type="datetime-local"
                 id="eventDate"
                 value={eventDate}
                 onChange={(e) => setEventDate(e.target.value)}
