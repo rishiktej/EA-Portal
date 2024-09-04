@@ -20,9 +20,9 @@ public class Event {
     public String clubName;
     public String eventName;
     public String eventDescription;
-    public String eventDate;
-    public String startTime;
-    public String endTime;
+    public Date eventDate;
+    public LocalTime startTime;
+    public LocalTime endTime;
     public String eventLocation;
-    public List<String> eventPresentees= new ArrayList<>();
+    public List<String> eventPresentees= new ArrayList<String>();
 }

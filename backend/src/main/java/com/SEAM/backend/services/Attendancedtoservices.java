@@ -12,42 +12,75 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class Attendancedtoservices {
 
     @Autowired
-    private Attendancedtorepo userRepository;
+    private EventRepo eventRepo;
 
-    public List<UserEventModel> getUsersWithAttendance() {
-        return userRepository.findUsersWithAttendance();
-    }
+    @Autowired
+    private UserRepo userRepo;
 
-    public void createXL(HttpServletResponse response) throws IOException {
-        List<UserEventModel> result = userRepository.findUsersWithAttendance();
+//    public List<UserEventModel> getUsersWithAttendance(String Event_ID) {
+//        System.out.println(Event_ID);
+//        Optional<Event> event = eventRepo.findById(Event_ID);
+//        System.out.println(event);
+//        if (event.isPresent()){
+//            List<String> presentees = event.get().eventPresentees;
+//            System.out.println(presentees);
+//
+//            List<UserEventModel> presenteesxl = new ArrayList<>();
+//
+//            for(String presentee: presentees){
+//                System.out.println("check");
+//                UserModel e=userRepo.findById(presentee).get();
+//
+//                UserEventModel u=new UserEventModel(e.username,e.roll_no,e.branch,e.semester);
+//
+//                presenteesxl.add(u);
+//            }
+//
+//            return presenteesxl;
+//        }
+//        else {
+//            List<UserEventModel> presenteesxl = new ArrayList<>();
+//            return presenteesxl;
+//        }
+//
+//    }
+
+    public void createXL(HttpServletResponse response,String Event_ID) throws IOException {
+        Optional<Event> event = eventRepo.findById(Event_ID);
+        List<String> presentees;
+        if (event.isPresent()){
+            presentees = event.get().eventPresentees;
+        }
+        else {
+            presentees = new ArrayList<String>();
+        }
+
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Attendance");
 
         Row headerRow = sheet.createRow(0);
-        String[] headers = {"username","roll_no","branch","clubName","eventName","eventDate","startTime","endTime","eventLocation"};
+        String[] headers = {"Username","Roll_no","Branch","Semester"};
         for (int i = 0; i < headers.length; i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(headers[i]);
         }
 
         int rowNum=1;
-        for(UserEventModel item:result){
+        for(String presente:presentees){
+            UserModel stdInfo=userRepo.findById(presente).get();
             Row row = sheet.createRow(rowNum++);
-            row.createCell(0).setCellValue(item.getUsername());
-            row.createCell(1).setCellValue(item.getRoll_no());
-            row.createCell(2).setCellValue(item.getBranch());
-            row.createCell(3).setCellValue(item.getClubName());
-            row.createCell(4).setCellValue(item.getEventName());
-            row.createCell(5).setCellValue(item.getEventDate().toString());
-            row.createCell(6).setCellValue(item.getStartTime().toString());
-            row.createCell(7).setCellValue(item.getEndTime().toString());
-            row.createCell(8).setCellValue(item.getEventLocation());
+            row.createCell(0).setCellValue(stdInfo.getUsername());
+            row.createCell(1).setCellValue(stdInfo.getRoll_no());
+            row.createCell(2).setCellValue(stdInfo.getBranch());
+            row.createCell(3).setCellValue(stdInfo.getSemester());
         }
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setHeader("Content-Disposition", "attachment; filename=attendence.xlsx");
