@@ -5,11 +5,11 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   const handleUserClick = () => {
-    navigate('/UserLogin'); // Change the route later
+    navigate('/user/login'); // Change the route later
   };
 
   const handleAdminClick = () => {
-    navigate('/adminLogin'); // Change the route later
+    navigate('/admin/adminLogin'); // Change the route later
   };
 
   return (
