@@ -16,10 +16,10 @@ public class EventController {
     @Autowired
     private EventServices service;
 
-    @RequestMapping("")
-     public String greet(){
-         return "Welcome to Event path...";
-     }
+    // @RequestMapping("")
+    //  public String greet(){
+    //      return "Welcome to Event path...";
+    //  }
 
      @PostMapping("/create")
     public ResponseEntity<Event> createController(@RequestBody Event event){
