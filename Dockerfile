@@ -1,4 +1,4 @@
-FROM 3.9.9:21-jdk AS build
+FROM eclipse-temurin:21-jdk AS build
 WORKDIR /backend
 COPY backend/pom.xml .
 COPY backend/src ./src
