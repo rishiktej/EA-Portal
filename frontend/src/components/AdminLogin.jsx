@@ -15,26 +15,28 @@ const Login = () => {
     console.log("Password:", password);
 
     try {
-      const response = await fetch("http://localhost:8080/adminLogin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ club, password }),
-      });
+      const response = await fetch(
+        "https://ea-portal-bv08.onrender.com/adminLogin",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ club, password }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-
+      console.log(response);
       const data = await response.text();
       console.log("Success:", data);
-      
-      if(data=='AuthenticationPass'){
-          navigate(`/admin/${club}`)
-      }
-      else{
-        console.log(data)
+
+      if (data == "AuthenticationPass") {
+        navigate(`/admin/${club}`);
+      } else {
+        console.log(data);
       }
     } catch (error) {
       console.error("Error:", error);
