@@ -7,8 +7,13 @@ function App() {
   return (
     <>
       <Routes>
+<<<<<<< HEAD
         <Route path="/login" element={<Login />} />
         <Route path="/override/*" element={<Exp />} />
+=======
+        <Route path='/login' element={<Login />}/>
+        <Route path='/override/*' element={<Exp />}/>        
+>>>>>>> 7f42997fd4fc94e351931b88c358182cccb1eec5
       </Routes>
     </>
   );

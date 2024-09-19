@@ -112,7 +112,7 @@ const Admind = () => {
               <ul className="space-y-4">
                 <li>
                   <Link
-                    to="/"
+                    to=""
                     className="flex items-center space-x-2 text-purple-700 font-bold hover:bg-purple-200 rounded-lg p-2"
                   >
                     <FaTachometerAlt />
@@ -122,7 +122,11 @@ const Admind = () => {
                 <li className="text-sm uppercase text-gray-500">Utilities</li>
                 <li>
                   <Link
+<<<<<<< HEAD
                     to={"/myevent"} // Using template literals to pass clubname
+=======
+                    to={'myevent'} // Using template literals to pass clubname
+>>>>>>> 7f42997fd4fc94e351931b88c358182cccb1eec5
                     className="flex items-center space-x-2 hover:bg-gray-200 rounded-lg p-2"
                   >
                     <FaPenNib />
@@ -140,7 +144,7 @@ const Admind = () => {
                 </li>
                 <li>
                   <Link
-                    to="/attendance"
+                    to="attendance"
                     className="flex items-center space-x-2 hover:bg-gray-200 rounded-lg p-2"
                   >
                     <FaIcons />
@@ -149,7 +153,7 @@ const Admind = () => {
                 </li>
                 <li>
                   <Link
-                    to="/samplepage"
+                    to="samplepage"
                     className="flex items-center space-x-2 hover:bg-gray-200 rounded-lg p-2"
                   >
                     <FaBook />
@@ -158,7 +162,7 @@ const Admind = () => {
                 </li>
                 <li>
                   <Link
-                    to="/documentation"
+                    to="documentation"
                     className="flex items-center space-x-2 hover:bg-gray-200 rounded-lg p-2"
                   >
                     <FaBook />
