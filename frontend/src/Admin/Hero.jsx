@@ -84,7 +84,7 @@ const Hero = () => {
                 <li className="text-sm uppercase text-gray-500">Utilities</li>
                 <li>
                   <Link
-                    to="/typography"
+                    to="/adminet/"
                     className="flex items-center space-x-2 hover:bg-gray-200 rounded-lg p-2"
                   >
                     <FaPenNib />
@@ -145,7 +145,7 @@ const Hero = () => {
             <main className="flex-1 p-4 space-y-4">
               <Routes>
                 <Route path="/" element={<DashboardPage />} />
-                <Route path="/typography" element={<TypographyPage />} />
+                <Route path="/typograp" element={<TypographyPage />} />
                 <Route path="/color" element={<ColorPage />} />
                 <Route path="/shadow" element={<ShadowPage />} />
                 <Route path="/icons" element={<IconsPage />} />

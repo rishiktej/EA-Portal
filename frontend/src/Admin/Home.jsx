@@ -17,6 +17,7 @@ import {
   FaPlus,
 } from "react-icons/fa";
 import { EventCard } from "./Eventcard"; // Assuming EventCard is the correct import
+import EventForm from "./EventRegistration";
 
 const DashboardPage = () => {
   const [events, setEvents] = useState([]);
@@ -29,7 +30,7 @@ const DashboardPage = () => {
     const fetchEvents = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/presentEventsByClub/${clubname}`
+          `https://ea-portal-bv08.onrender.com/presentEventsByClub/${clubname}`
         );
         console.log(response);
         if (!response.ok) {
@@ -84,7 +85,11 @@ const Admind = () => {
         <header className="bg-white shadow flex items-center justify-between p-4 w-full">
           <div className="flex items-center space-x-2">
             <FaBars className="cursor-pointer" onClick={toggleSidebar} />
-            <img src="SEAM.png" alt="Logo" className="w-16 h-16" />
+            <img
+              src="/flogos/logo.jpg"
+              alt="Logo"
+              className="w-12 h-12 sm:w-16 sm:h-16"
+            />
             <div className="text-2xl font-bold">
               Student Event Attendance Management
             </div>
@@ -123,7 +128,7 @@ const Admind = () => {
                 <li className="text-sm uppercase text-gray-500">Utilities</li>
                 <li>
                   <Link
-                    to={`/adminet/${clubname}`} // Using template literals to pass clubname
+                    to={`/admin/adminet/${clubname}`} // Using template literals to pass clubname
                     className="flex items-center space-x-2 hover:bg-gray-200 rounded-lg p-2"
                   >
                     <FaPenNib />
@@ -169,7 +174,7 @@ const Admind = () => {
                 {/* Create Event Button */}
                 <li>
                   <Link
-                    to="/eventcreation"
+                    to="/admin/eventcreation"
                     className="flex items-center space-x-2 bg-purple-600 text-white hover:bg-purple-700 rounded-lg p-2"
                   >
                     <FaPlus />
@@ -185,7 +190,7 @@ const Admind = () => {
             <main className="flex-1 p-4 space-y-4">
               <Routes>
                 <Route path="/" element={<DashboardPage />} />
-                <Route path="/eventcreation" element={<EventCreationPage />} />
+                <Route path="/admin/eventcreation" element={<EventForm />} />
                 {/* Add other routes here */}
               </Routes>
             </main>

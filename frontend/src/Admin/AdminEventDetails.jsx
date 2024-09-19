@@ -41,7 +41,7 @@ const AdminEventDetails = () => {
     // Your slider settings here
   };
 
-  const baseUrl = "http://localhost:8080"; // Base URL of your backend
+  const baseUrl = "https://ea-portal-bv08.onrender.com"; // Base URL of your backend
   const downloadDocumentUrl = `${baseUrl}/download/${eventId}`;
 
   const handleDownload = async () => {

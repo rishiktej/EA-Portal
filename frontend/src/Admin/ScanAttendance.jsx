@@ -29,7 +29,7 @@ const ScanAttendancePage = () => {
 
       try {
         const response = await fetch(
-          `http://localhost:8080/${eventId}/presentees`,
+          `https://ea-portal-bv08.onrender.com/${eventId}/presentees`,
           {
             method: "PUT",
             headers: {
