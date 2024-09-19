@@ -12,7 +12,9 @@ const EventDetailPage = () => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/${eventId}`);
+        const response = await fetch(
+          `https://ea-portal-bv08.onrender.com/${eventId}`
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch event");
         }
@@ -29,7 +31,7 @@ const EventDetailPage = () => {
   }, [eventId]);
 
   const handlePostAttendance = () => {
-    navigate(`/scan-attendance/${eventId}`);
+    navigate(`/admin/scan-attendance/${eventId}`);
   };
 
   if (loading) {

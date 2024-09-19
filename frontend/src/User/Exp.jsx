@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Route,
-  Routes,
-  Link,
-  useParams,
-  Router,
-} from "react-router-dom";
+import { Route, Routes, Link, useParams, Router } from "react-router-dom";
 import {
   FaTachometerAlt,
   FaPenNib,
@@ -88,9 +82,12 @@ const Admind = () => {
         {/* Header */}
         <header className="bg-white shadow flex items-center justify-between p-4 w-full">
           <div className="flex items-center space-x-2">
-            <FaBars className="cursor-pointer md:w-130" onClick={toggleSidebar} />
+            <FaBars
+              className="cursor-pointer md:w-130"
+              onClick={toggleSidebar}
+            />
             <img
-              src="SEAM.png"
+              src="/flogos/logo.jpg"
               alt="Logo"
               className="w-12 h-12 sm:w-16 sm:h-16"
             />
@@ -125,7 +122,11 @@ const Admind = () => {
                 <li className="text-sm uppercase text-gray-500">Utilities</li>
                 <li>
                   <Link
+<<<<<<< HEAD
+                    to={"/myevent"} // Using template literals to pass clubname
+=======
                     to={'myevent'} // Using template literals to pass clubname
+>>>>>>> 7f42997fd4fc94e351931b88c358182cccb1eec5
                     className="flex items-center space-x-2 hover:bg-gray-200 rounded-lg p-2"
                   >
                     <FaPenNib />
@@ -168,7 +169,6 @@ const Admind = () => {
                     <span>Documentation</span>
                   </Link>
                 </li>
-
               </ul>
             </nav>
           </aside>
@@ -178,7 +178,7 @@ const Admind = () => {
             <main className="flex-1 p-4 space-y-4">
               <Routes>
                 <Route path="/user" element={<Se />} />
-                <Route path="/myevent" element={<UserEvent />}/>
+                <Route path="/myevent" element={<UserEvent />} />
                 <Route path="/Allclubs" element={<Allclubs />} />
                 <Route path="/attendance" element={<Userattendancepage />} />
                 <Route path="/samplepage" element={<SamplePage />} />

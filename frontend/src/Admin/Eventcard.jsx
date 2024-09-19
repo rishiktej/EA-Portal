@@ -7,7 +7,7 @@ const EventCard = ({ event }) => {
   const formattedDate = date.toLocaleDateString();
   return (
     <Link
-      to={`/event/${event.eventId}`}
+      to={`/admin/event/${event.eventId}`}
       className="block p-4 rounded-lg shadow-lg hover:bg-gray-100 transition"
     >
       <div className="mt-4">
@@ -24,7 +24,7 @@ const EventCard1 = ({ event }) => {
 
   const handleClick = () => {
     // Navigate to the event details page
-    navigate(`/pastevent/${event.eventId}`, { state: { event } });
+    navigate(`/admin/pastevent/${event.eventId}`, { state: { event } });
   };
   const date = new Date(event.eventDate);
   const formattedDate = date.toLocaleDateString();

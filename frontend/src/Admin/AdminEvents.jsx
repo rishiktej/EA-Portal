@@ -13,7 +13,7 @@ const AdminEvents = () => {
     const fetchEvents = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/pastEventsByClub/${clubname}`
+          `https://ea-portal-bv08.onrender.com/pastEventsByClub/${clubname}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch events");
