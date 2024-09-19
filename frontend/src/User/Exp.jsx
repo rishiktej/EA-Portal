@@ -122,11 +122,7 @@ const Admind = () => {
                 <li className="text-sm uppercase text-gray-500">Utilities</li>
                 <li>
                   <Link
-<<<<<<< HEAD
                     to={"/myevent"} // Using template literals to pass clubname
-=======
-                    to={'myevent'} // Using template literals to pass clubname
->>>>>>> 7f42997fd4fc94e351931b88c358182cccb1eec5
                     className="flex items-center space-x-2 hover:bg-gray-200 rounded-lg p-2"
                   >
                     <FaPenNib />
