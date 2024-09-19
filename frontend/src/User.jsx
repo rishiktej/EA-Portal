@@ -9,7 +9,7 @@ function App() {
     <> 
       <Routes>
         <Route path='/login' element={<Login />}/>
-        <Route path='/override' element={<Exp />}/>        
+        <Route path='/override/*' element={<Exp />}/>        
       </Routes>
     </>
   )
