@@ -17,6 +17,11 @@ public class UserController {
     @Autowired
     public UserServices service;
 
+    @RequestMapping("/")
+    public String home(){
+        return "Server Bitches";
+    }
+
     @PostMapping("/post")
     public ResponseEntity<UserModel> postController(@RequestBody UserModel user){
         System.out.println("controller");
